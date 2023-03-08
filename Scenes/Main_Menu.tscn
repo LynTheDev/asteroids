@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1t37bpx2f4wv"]
+
+[ext_resource type="PackedScene" uid="uid://g3pgpyl4m242" path="res://Scenes/Background/BackGround.tscn" id="1_ib5aj"]
+[ext_resource type="Texture2D" uid="uid://b37lc3gbtkv6i" path="res://Assets/Asteroids_Title.png" id="1_icsww"]
+[ext_resource type="Texture2D" uid="uid://dbw1kn6tivbb2" path="res://Assets/Player.png" id="2_g83l0"]
+[ext_resource type="Script" path="res://Scripts/Player_Menu.gd" id="3_f74bc"]
+[ext_resource type="Script" path="res://Scripts/Particles.gd" id="4_qsbwx"]
+[ext_resource type="Texture2D" uid="uid://mf2k1sngg2ak" path="res://Assets/Buttons/Play.png" id="5_gk5uf"]
+[ext_resource type="Script" path="res://Scripts/Play.gd" id="6_5qkuk"]
+[ext_resource type="Texture2D" uid="uid://b1mxpc2mdigjq" path="res://Assets/Panic.png" id="6_kpie6"]
+[ext_resource type="Script" path="res://Scripts/Quit.gd" id="6_w2rcc"]
+[ext_resource type="Texture2D" uid="uid://dgacesaw385vs" path="res://Assets/Buttons/Quit.png" id="7_anrbc"]
+[ext_resource type="Script" path="res://Scripts/FullScreen.gd" id="10_a66ig"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tns8c"]
+radius = 13.0096
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3en0o"]
+size = Vector2(126.154, 62.3077)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8duy2"]
+size = Vector2(62, 30)
+
+[node name="Main_Menu" type="Node2D"]
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(507, 111)
+scale = Vector2(6, 6)
+texture = ExtResource("1_icsww")
+
+[node name="BackGround" parent="." instance=ExtResource("1_ib5aj")]
+
+[node name="Area2D" type="Area2D" parent="BackGround"]
+position = Vector2(-8, 8)
+script = ExtResource("3_f74bc")
+
+[node name="Player_Spr" type="Sprite2D" parent="BackGround/Area2D"]
+position = Vector2(36, 47)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_g83l0")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="BackGround/Area2D/Player_Spr"]
+position = Vector2(-0.499999, 5.5)
+rotation = -1.5708
+scale = Vector2(2, 2)
+lifetime = 0.4
+speed_scale = 0.6
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_sphere_radius = 2.5
+spread = 20.0
+gravity = Vector2(3, 980)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+script = ExtResource("4_qsbwx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackGround/Area2D"]
+position = Vector2(36, 47.5)
+shape = SubResource("CircleShape2D_tns8c")
+
+[node name="Panic" type="Sprite2D" parent="BackGround/Area2D"]
+visible = false
+position = Vector2(36, 10)
+scale = Vector2(2, 2)
+texture = ExtResource("6_kpie6")
+
+[node name="Play" type="Area2D" parent="."]
+position = Vector2(499, 357)
+scale = Vector2(1.3, 1.3)
+script = ExtResource("6_5qkuk")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Play"]
+scale = Vector2(4, 4)
+texture = ExtResource("5_gk5uf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Play"]
+position = Vector2(0, 0.384644)
+shape = SubResource("RectangleShape2D_3en0o")
+
+[node name="Quit" type="Area2D" parent="."]
+position = Vector2(500, 445)
+scale = Vector2(2, 2)
+script = ExtResource("6_w2rcc")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Quit"]
+scale = Vector2(2, 2)
+texture = ExtResource("7_anrbc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Quit"]
+shape = SubResource("RectangleShape2D_8duy2")
+
+[node name="FullScreen" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 573.0
+offset_right = 222.0
+offset_bottom = 599.0
+text = "Press F6 to toggle full screen and F5 to hide this text."
+script = ExtResource("10_a66ig")
+
+[connection signal="mouse_entered" from="BackGround/Area2D" to="BackGround/Area2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BackGround/Area2D" to="BackGround/Area2D" method="_on_mouse_exited"]
+[connection signal="input_event" from="Play" to="Play" method="_on_input_event"]
+[connection signal="input_event" from="Quit" to="Quit" method="_on_input_event"]

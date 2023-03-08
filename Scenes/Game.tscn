@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba25pr0io3fqw"]
+
+[ext_resource type="PackedScene" uid="uid://dqodj3qgbygyy" path="res://Scenes/Entities/Player.tscn" id="1_58fie"]
+[ext_resource type="Script" path="res://Scripts/Game.gd" id="1_wusk8"]
+[ext_resource type="PackedScene" uid="uid://dydenfvsl3x20" path="res://Scenes/Entities/Asteroids/Asteroid_Big.tscn" id="2_1xram"]
+[ext_resource type="PackedScene" uid="uid://g3pgpyl4m242" path="res://Scenes/Background/BackGround.tscn" id="2_laoor"]
+
+[node name="Game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_wusk8")
+
+[node name="BackGround" parent="." instance=ExtResource("2_laoor")]
+
+[node name="Player" parent="." instance=ExtResource("1_58fie")]
+
+[node name="Asteroid_Manager" type="Node2D" parent="."]
+
+[node name="Asteroid_Big" parent="Asteroid_Manager" instance=ExtResource("2_1xram")]
+position = Vector2(343, 260)
+
+[node name="Asteroid_Big_Two" parent="Asteroid_Manager" instance=ExtResource("2_1xram")]
+position = Vector2(883, 142)
+
+[node name="Asteroid_Big2" parent="Asteroid_Manager" instance=ExtResource("2_1xram")]
+position = Vector2(683, 492)
+
+[node name="Asteroid_Spawner" type="Timer" parent="Asteroid_Manager"]
+wait_time = 5.0
+
+[node name="Score" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 66.0
+offset_bottom = 27.0
+text = "Score: 0"
+
+[node name="Rate" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 24.0
+offset_right = 121.0
+offset_bottom = 50.0
+text = "Spawn Rate: 5s"
+
+[node name="Start_Text" type="Label" parent="."]
+offset_left = 23.0
+offset_top = 109.0
+offset_right = 273.0
+offset_bottom = 135.0
+text = "Press \"Shoot\" to start. "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStream" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="death" from="Player" to="." method="_on_player_death"]
+[connection signal="timeout" from="Asteroid_Manager/Asteroid_Spawner" to="." method="_on_asteroid_spawner_timeout"]

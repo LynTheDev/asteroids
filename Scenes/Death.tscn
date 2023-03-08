@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://di6a4rj5rebl5"]
+
+[ext_resource type="Script" path="res://Scripts/Death.gd" id="1_rqs6u"]
+[ext_resource type="PackedScene" uid="uid://g3pgpyl4m242" path="res://Scenes/Background/BackGround.tscn" id="2_mj87m"]
+[ext_resource type="Texture2D" uid="uid://ce1wr5q0bpsl2" path="res://Assets/Buttons/Try_Again.png" id="3_fvj8k"]
+[ext_resource type="Script" path="res://Scripts/Try_Again.gd" id="3_y08y6"]
+[ext_resource type="Script" path="res://Scripts/Quit.gd" id="5_f3edd"]
+[ext_resource type="Texture2D" uid="uid://dgacesaw385vs" path="res://Assets/Buttons/Quit.png" id="5_greei"]
+[ext_resource type="Texture2D" uid="uid://btoe5aj30twxi" path="res://Assets/Death.png" id="7_nsj6w"]
+[ext_resource type="Script" path="res://Scripts/Menu.gd" id="8_mtsge"]
+[ext_resource type="Texture2D" uid="uid://cs07y41g5cmfv" path="res://Assets/Buttons/Menu.png" id="8_s7tdx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmfua"]
+size = Vector2(62, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yldl8"]
+size = Vector2(62, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wlk66"]
+size = Vector2(124, 60)
+
+[node name="Death" type="Node2D"]
+script = ExtResource("1_rqs6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(536, 194)
+scale = Vector2(5, 5)
+texture = ExtResource("7_nsj6w")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BackGround" parent="." instance=ExtResource("2_mj87m")]
+
+[node name="Try_Again" type="Area2D" parent="."]
+position = Vector2(389, 315)
+scale = Vector2(3, 3)
+script = ExtResource("3_y08y6")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Try_Again"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_fvj8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Try_Again"]
+shape = SubResource("RectangleShape2D_kmfua")
+
+[node name="Quit" type="Area2D" parent="."]
+position = Vector2(651, 314)
+scale = Vector2(3, 3)
+script = ExtResource("5_f3edd")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Quit"]
+scale = Vector2(2, 2)
+texture = ExtResource("5_greei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Quit"]
+shape = SubResource("RectangleShape2D_yldl8")
+
+[node name="Menu" type="Area2D" parent="."]
+position = Vector2(517, 418)
+script = ExtResource("8_mtsge")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu"]
+scale = Vector2(4, 4)
+texture = ExtResource("8_s7tdx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu"]
+shape = SubResource("RectangleShape2D_wlk66")
+
+[connection signal="input_event" from="Try_Again" to="Try_Again" method="_on_input_event"]
+[connection signal="input_event" from="Quit" to="Quit" method="_on_input_event"]
+[connection signal="input_event" from="Menu" to="Menu" method="_on_input_event"]

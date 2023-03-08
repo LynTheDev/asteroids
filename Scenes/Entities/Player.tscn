@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqodj3qgbygyy"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_0uxrl"]
+[ext_resource type="Texture2D" uid="uid://dbw1kn6tivbb2" path="res://Assets/Player.png" id="1_ghdht"]
+[ext_resource type="Script" path="res://Scripts/Particles.gd" id="3_q85k7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1poxt"]
+size = Vector2(21.5, 17)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(139, 74)
+collision_mask = 12
+script = ExtResource("1_0uxrl")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-0.200002, 0.200002)
+rotation = 1.5708
+scale = Vector2(2.225, 2.225)
+texture = ExtResource("1_ghdht")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.25, -0.5)
+shape = SubResource("RectangleShape2D_1poxt")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-10, 0)
+rotation = -1.5708
+scale = Vector2(2, 2)
+lifetime = 0.4
+speed_scale = 0.6
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_sphere_radius = 4.5
+gravity = Vector2(3, 980)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+script = ExtResource("3_q85k7")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(25, -1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
