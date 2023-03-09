@@ -1,4 +1,4 @@
-# asteroids
+# Asteroids
 
 My first game outside the pico8.
 
